@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>* { padding: 0; margin: 0; }</style>
+    <script src="js/phaser.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const game = new Phaser.Game(1280, 960, Phaser.CANVAS, null, {
+            preload: preload, 
+            create: create, 
+            update: update,
+        });
+
+        let background;
+        let fieldInfo;
+        let field;
+        let newbagel;
+
+        let bagel_red;
+        let bagel_blue;
+        let bagel_green;
+        let bagel_lightBlue;
+        let bagle_yellow;
+        let bagle_pink;
+        let bagle_differentColor;
+        const bagleList = ["bagel_red", "bagel_blue", "bagel_green", "bagel_lightBlue", "bagle_yellow", "bagle_pink", "bagle_differentColor"]
+
+
+        function preload() {
+            game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+            game.scale.pageAlignHorizontally = true;
+            game.scale.pageAlignVertically = true;
+            
+            game.load.image('background', './images/backgrounds/background.jpg');
+            game.load.image('bagel_red', './images/game/gem-01.png');
+            game.load.image('bagel_blue', './images/game/gem-02.png');
+            game.load.image('bagel_green', './images/game/gem-03.png');
+            game.load.image('bagel_lightBlue', './images/game/gem-04.png');
+            game.load.image('bagle_yellow', './images/game/gem-05.png');
+            game.load.image('bagle_pink', './images/game/gem-06.png');
+            game.load.image('bagle_differentColor', './images/game/gem-07.png');
+        };
+        function create() {
+            background = game.add.sprite(0, 0, 'background');
+
+            // bagel_red = game.add.sprite(10, 30, 'bagel_red');
+            // bagel_blue = game.add.sprite(100, 30, 'bagel_blue');
+            // bagel_green = game.add.sprite(200, 30, 'bagel_green');
+            // bagel_lightBlue = game.add.sprite(300, 30, 'bagel_lightBlue');
+            init();
+            console.log(field)
+
+        };
+        function update() {};
+
+        function init() {
+            fieldInfo = {
+                width: 20,
+                height: 20,
+            count: {
+                row: 8,
+                col: 10,
+            },
+            offset: {
+                top: 50,
+                left: 100,
+            },
+            padding: 80,
+
+            randombagel(arrey){
+                function getRandomInt(max) {
+                return Math.floor(Math.random() * Math.floor(max));
+            };
+            return arrey[getRandomInt(arrey.length)];
+            
+            }
+            }
+
+            field = game.add.group();
+            for(c = 0; c <  fieldInfo.count.col; c++) {
+                for(r = 0; r < fieldInfo.count.row; r++) {
+                    let brickX = (c * (fieldInfo.width + fieldInfo.padding)) + fieldInfo.offset.left;
+                    let brickY = (r * (fieldInfo.height + fieldInfo.padding)) + fieldInfo.offset.top;
+                    newbagel = game.add.sprite(brickX, brickY, fieldInfo.randombagel(bagleList));
+                    game.physics.enable(newbagel, Phaser.Physics.ARCADE);
+                    newbagel.body.immovable = true;
+                    newbagel.anchor.set(0.5);
+                    field.add(newbagel);
+                }
+            }
+        }
+
+        
+
+        console.log(field)
+    </script>
+</body>
+</html>
