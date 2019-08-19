@@ -20,6 +20,7 @@
         let fieldInfo;
         let field;
         let newbagel;
+        let play;
 
         let bagel_red;
         let bagel_blue;
@@ -44,27 +45,27 @@
             game.load.image('bagle_yellow', './images/game/gem-05.png');
             game.load.image('bagle_pink', './images/game/gem-06.png');
             game.load.image('bagle_differentColor', './images/game/gem-07.png');
+            game.load.image('play', './images/btn-play.png');
         };
         function create() {
             background = game.add.sprite(0, 0, 'background');
-
-            // bagel_red = game.add.sprite(10, 30, 'bagel_red');
-            // bagel_blue = game.add.sprite(100, 30, 'bagel_blue');
-            // bagel_green = game.add.sprite(200, 30, 'bagel_green');
-            // bagel_lightBlue = game.add.sprite(300, 30, 'bagel_lightBlue');
-            init();
-            console.log(field)
+            play = game.add.sprite(960, 50, 'play');
+            play.inputEnabled = true;
+            play.events.onInputDown.add( ()=>{init()}, this);
 
         };
         function update() {};
 
+        function score(event){
+            return console.log(event)
+        }
         function init() {
             fieldInfo = {
                 width: 20,
                 height: 20,
             count: {
-                row: 8,
-                col: 10,
+                row: 9,
+                col: 9,
             },
             offset: {
                 top: 50,
@@ -90,6 +91,8 @@
                     game.physics.enable(newbagel, Phaser.Physics.ARCADE);
                     newbagel.body.immovable = true;
                     newbagel.anchor.set(0.5);
+                    newbagel.inputEnabled = true;
+                    newbagel.events.onInputDown.add(score, this);
                     field.add(newbagel);
                 }
             }
@@ -97,7 +100,7 @@
 
         
 
-        console.log(field)
+        
     </script>
 </body>
 </html>
