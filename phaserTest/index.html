@@ -30,7 +30,7 @@
         let bagle_pink;
         let bagle_differentColor;
         const bagleList = ["bagel_red", "bagel_blue", "bagel_green", "bagel_lightBlue", "bagle_yellow", "bagle_pink", "bagle_differentColor"]
-
+        let transitItem;
 
         function preload() {
             game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -47,6 +47,7 @@
             game.load.image('bagle_differentColor', './images/game/gem-07.png');
             game.load.image('play', './images/btn-play.png');
         };
+
         function create() {
             background = game.add.sprite(0, 0, 'background');
             play = game.add.sprite(960, 50, 'play');
@@ -57,8 +58,21 @@
         function update() {};
 
         function score(event){
-            return console.log(event)
+            console.log(event)
+            let x = event.position.x;
+            let y = event.position.y
+            
+            if(transitItem){
+                event.position.x = transitItem.position.x;
+                event.position.y = transitItem.position.y;
+                transitItem.position.x = x;
+                transitItem.position.y = y;
+                transitItem = '';
+            }else{
+                transitItem = event;
+            }
         }
+
         function init() {
             fieldInfo = {
                 width: 20,
@@ -75,10 +89,9 @@
 
             randombagel(arrey){
                 function getRandomInt(max) {
-                return Math.floor(Math.random() * Math.floor(max));
-            };
-            return arrey[getRandomInt(arrey.length)];
-            
+                    return Math.floor(Math.random() * Math.floor(max));
+                };
+                return arrey[getRandomInt(arrey.length)];
             }
             }
 
