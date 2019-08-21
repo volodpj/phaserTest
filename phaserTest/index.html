@@ -53,12 +53,15 @@
             play = game.add.sprite(960, 50, 'play');
             play.inputEnabled = true;
             play.events.onInputDown.add( ()=>{init()}, this);
+            
 
         };
-        function update() {};
+        function update() {
+            
+        };
 
         function score(event){
-            console.log(event)
+            
             let x = event.position.x;
             let y = event.position.y
             
@@ -67,7 +70,10 @@
                 event.position.y = transitItem.position.y;
                 transitItem.position.x = x;
                 transitItem.position.y = y;
+                
                 transitItem = '';
+                verification(field);
+                
             }else{
                 transitItem = event;
             }
@@ -109,9 +115,21 @@
                     field.add(newbagel);
                 }
             }
+            console.log(field.children)
         }
 
-        
+        function verification(field){
+            let arr = [];
+            for(let i = 0; i < 9; i++){
+                if(field.children[i].key === field.children[i+1].key){
+                    arr.push(field.children[i])
+                }
+            }
+            console.log(arr)
+            
+
+        }
+
 
         
     </script>
