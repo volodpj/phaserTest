@@ -36,7 +36,6 @@
             game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
             game.scale.pageAlignHorizontally = true;
             game.scale.pageAlignVertically = true;
-            
             game.load.image('background', './images/backgrounds/background.jpg');
             game.load.image('bagel_red', './images/game/gem-01.png');
             game.load.image('bagel_blue', './images/game/gem-02.png');
@@ -115,18 +114,6 @@
                     field.add(newbagel);
                 }
             }
-            console.log(field.children)
-        }
-
-        function verification(field){
-            let arr = [];
-            for(let i = 0; i < 9; i++){
-                if(field.children[i].key === field.children[i+1].key){
-                    arr.push(field.children[i])
-                }
-            }
-            console.log(arr)
-            
 
         }
 
